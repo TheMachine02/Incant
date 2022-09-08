@@ -4,6 +4,9 @@ include	'header/asm-errno.inc'
 include	'header/asm-signal.inc'
 include	'header/asm-boot.inc'
 include	'header/asm-leaf.inc'
+include	'header/asm-syscall.inc'
+
+include	'crc.asm'
 
 entry main
 
@@ -12,12 +15,9 @@ main:
 ; install signal handler for SIGCHLD
 	ld	hl, SIGCHLD
 	ld	de, handler_chld
-	syscall	_signal
-; now just wait
-.trap:
-	ld	hl, 5*100
-	syscall	_usleep
-	jr	.trap	
+	call	_signal
+; now just wait (launch service, mount from /etc/fstab)
+	jp	trap
 
 handler_chld:
 ; we are pid 1, wait on all children to be reaped

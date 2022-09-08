@@ -6,6 +6,16 @@ include	'header/asm-boot.inc'
 include	'header/asm-leaf.inc'
 include	'header/asm-syscall.inc'
 
+; wait pid option parameter
+define	WNOHANG					1 shl 0
+define	WUNTRACED				1 shl 1
+define	WCONTINUED				1 shl 2
+
+; exit flags
+define	EXITED					1 shl 0
+define	SIGNALED				1 shl 1
+define	COREDUMP				1 shl 2
+
 include	'crc.asm'
 
 entry main

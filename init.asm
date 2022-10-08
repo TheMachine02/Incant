@@ -32,9 +32,8 @@ main:
 handler_chld:
 ; we are pid 1, wait on all children to be reaped
 	ld	hl, -1
-	ld	bc, 0
-	ld	de, WNOHANG
-	call	_waitpid
+	ld	de, 0
+	ld	bc, WNOHANG
 	or	a, a
 	add	hl, bc
 	sbc	hl, bc
